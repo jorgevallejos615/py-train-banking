@@ -1,0 +1,13 @@
+[project]
+name = "python-banking-app"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "logging>=0.4.9.6",
+    "os",
+    "pytest",
+    "ruff",
+    "time",
+]
