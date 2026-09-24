@@ -6,7 +6,6 @@ from src.banking import (
     logger,
 )
 
-
 customers: list[Customer] = []
 
 
