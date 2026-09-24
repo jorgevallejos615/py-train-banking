@@ -1,0 +1,37 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # Change to match your project's Python version
+          cache: 'pip'           # Speeds up workflow by caching dependencies
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      # 4. Run Ruff Linter
+      # Using --no-cache avoids any potential caching issues in the CI container
+      - name: Run Ruff Linting
+        run: ruff check --no-cache
+
+      # 5. Run pytest suite
+      - name: Run Tests
+        run: pytest
